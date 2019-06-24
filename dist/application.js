@@ -4,20 +4,34 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-/**
- * @author [Double]
- * @email [2637309949@qq.com]
- * @create date 2019-01-09 16:55:19
- * @modify date 2019-01-09 16:55:19
- * @desc [captcha base64]
- */
+// Copyright (c) 2018-2020 Double.  All rights reserved.
+// Use of this source code is governed by a MIT style
+// license that can be found in the LICENSE file.
 const svgCaptcha = require('svg-captcha');
+
+const deepmerge = require('deepmerge');
 
 const assert = require('assert').strict;
 
 const is = require('is');
 
 const utils = require('./utils');
+
+const defaultOpts = {
+  urlPrefix: '/captcha',
+  maxAge: 60000,
+  config: {
+    size: 4,
+    ignoreChars: '0o1i',
+    noise: 1,
+    color: true,
+    background: '#cc9966'
+  },
+  cipher: {
+    key: '5cbd5f603fd886000e3bb75e',
+    iv: '5c9dbc4c9699fa000e1e0a98'
+  }
+};
 
 module.exports = function () {
   let opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
@@ -26,6 +40,7 @@ module.exports = function () {
     urlPrefix: 'captcha',
     cipher: {}
   };
+  opt = deepmerge.all([defaultOpts, opt]);
   return (
     /*#__PURE__*/
     function () {
@@ -33,7 +48,6 @@ module.exports = function () {
         let {
           router
         } = _ref;
-        opt.urlPrefix = opt.urlPrefix || '/captcha';
         assert.ok(is.object(opt.cipher), 'cipher can not be empty!');
         assert.ok(is.string(opt.cipher.key), 'cipher.key can not be empty!');
         assert.ok(is.string(opt.cipher.iv), 'cipher.iv can not be empty!');

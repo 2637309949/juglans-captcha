@@ -1,4 +1,45 @@
-# juglans-captcha
+## juglans-captcha
+
+### Example
+
+```javascript
+const captcha = Captcha({
+  urlPrefix: '/captcha',
+  config: {
+    size: 4,
+    ignoreChars: '0o1i',
+    noise: 1,
+    color: true,
+    background: '#cc9966'
+  },
+  cipher: {
+    key: '5cbd5f603fd886000e3bb75e',
+    iv: '5c9dbc4c9699fa000e1e0a98'
+  }
+})
+app.Use(Captcha)
+```
+
+## API
+
+// set diff property if you want
+```javascript
+const defaultOpts = {
+  urlPrefix: '/captcha',
+  maxAge: 60000,
+  config: {
+    size: 4,
+    ignoreChars: '0o1i',
+    noise: 1,
+    color: true,
+    background: '#cc9966'
+  },
+  cipher: {
+    key: '5cbd5f603fd886000e3bb75e',
+    iv: '5c9dbc4c9699fa000e1e0a98'
+  }
+}
+```
 
 ## MIT License
 
