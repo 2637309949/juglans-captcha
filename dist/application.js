@@ -89,7 +89,8 @@ module.exports = function () {
             } catch (error) {
               ctx.status = 500;
               ctx.body = {
-                message: error.message
+                message: 'Internal Server Error',
+                stack: error.stack || error.message
               };
             }
           });
