@@ -74,25 +74,17 @@ module.exports = function () {
         /*#__PURE__*/
         function () {
           var _ref4 = _asyncToGenerator(function* (ctx) {
-            try {
-              const {
-                data,
-                text
-              } = svgCaptcha.create(opt.config);
-              const encText = utils.encrypt(text, opt.cipher.key, opt.cipher.iv);
-              ctx.cookies.set('captcha', encText, {
-                secure: false,
-                httpOnly: false,
-                maxAge: opt.maxAge
-              });
-              ctx.body = data;
-            } catch (error) {
-              ctx.status = 500;
-              ctx.body = {
-                message: 'Internal Server Error',
-                stack: error.stack || error.message
-              };
-            }
+            const {
+              data,
+              text
+            } = svgCaptcha.create(opt.config);
+            const encText = utils.encrypt(text, opt.cipher.key, opt.cipher.iv);
+            ctx.cookies.set('captcha', encText, {
+              secure: false,
+              httpOnly: false,
+              maxAge: opt.maxAge
+            });
+            ctx.body = data;
           });
 
           return function (_x4) {
